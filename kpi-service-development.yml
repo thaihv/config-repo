@@ -22,8 +22,6 @@ keycloak-client:
   server-url: http://tamky.xyz:8080/auth
   realm:  Smartcity
 spring:
-  application:
-    name: kpi-service
   data:
     rest:
       defaultMediaType: application/json  
