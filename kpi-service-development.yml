@@ -1,0 +1,79 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /kpi  
+
+base-url: http://localhost:${server.port}/${server.servlet.context-path}      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+keycloak:
+  realm: Smartcity
+  auth-server-url: http://tamky.xyz:8080/auth
+  ssl-required: external
+  resource: kpi-service
+  credentials.secret: 4d7eeda5-c378-42d4-9fe6-a58376327165
+  use-resource-role-mappings: true
+#  bearer-only: true
+  
+keycloak-client:
+  server-url: http://tamky.xyz:8080/auth
+  realm:  Smartcity
+spring:
+  application:
+    name: kpi-service
+  data:
+    rest:
+      defaultMediaType: application/json  
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate.jdbc.batch_size: 20
+      hibernate.cache.use_query_cache: false
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_structured_entries: false
+      hibernate.cache.use_minimal_puts: false
+      hibernate.jdbc.lob.non_contextual_creation: true
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://www.tamky.xyz:15432/kpi
+    username: kpi
+    password: kpi
+    driverClassName: org.postgresql.Driver 
+    initialization-mode: always    
+    hikari:
+     connectionTimeout: 20000
+     maximumPoolSize: 5   
+ 
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: kpi-service
+            client-secret: 4d7eeda5-c378-42d4-9fe6-a58376327165
+            authorization-grant-type: authorization_code
+            redirect-uri: ${base-url}/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            logout: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/logout
+            certs-id: YxisG5U0Rhs1GOoOdEmEN4_QcJ2kSMF7cwaUEi1zSQQ
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+
+
