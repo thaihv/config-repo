@@ -1,0 +1,89 @@
+logging:
+  level:
+    root: WARN
+    org.springframework.web: INFO
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+server:
+  port: 8090
+base-url: http://localhost:${server.port} 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/   
+keycloak-client:
+  server-url: http://tamky.xyz:8080/auth
+  realm:  Smartcity
+spring:
+  application:
+    name: api-gateway 
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: api-gateway
+            client-secret: e4b09b9b-fc83-4253-a32b-ffce5f7e9b1b
+            authorization-grant-type: authorization_code
+            redirect-uri: ${base-url}/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+  cloud:
+    gateway: 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+            - GET
+            - POST
+            - DELETE
+            - PUT
+            - PATCH
+            - OPTIONS
+            add-to-simple-url-handler-mapping: true
+      routes:
+        - id: kpi-service
+          uri: lb://kpi-service
+          predicates:
+            - Path=/kpi/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie  
+        - id: realtime-service
+          uri: lb://realtime-service
+          predicates:
+            - Path=/realtime/**
+            - Method=GET,POST,OPTIONS
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
+        - id: ui-service
+          uri: lb://ui-service
+          predicates:
+            - Path=/mytamky/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie             
+        - id: ui-community-service
+          uri: lb://ui-community-service
+          predicates:
+            - Path=/community/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie    
+            
