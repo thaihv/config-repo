@@ -7,7 +7,7 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
 server:
-  port: 8090
+  port: 8095
 base-url: http://localhost:${server.port} 
 eureka:
   client:
