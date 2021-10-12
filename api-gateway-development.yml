@@ -17,8 +17,6 @@ keycloak-client:
   server-url: http://tamky.xyz:8080/auth
   realm:  Smartcity
 spring:
-  application:
-    name: api-gateway 
   security:
     oauth2:
       client:
