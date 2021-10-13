@@ -1,0 +1,101 @@
+### Common
+
+server:
+  port: 8092
+  servlet:
+    context-path: /realtime    
+base-url: http://localhost:${server.port}/${server.servlet.context-path}  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/ 
+keycloak-client:
+  server-url: http://tamky.xyz:8080/auth
+  realm:  Smartcity
+    
+spring:
+  profiles:
+    active: dev
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: realtime-service
+            client-secret: f127b769-f8f8-44e0-af16-735497f677d5
+            authorization-grant-type: authorization_code
+            redirect-uri: ${base-url}/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs    
+  
+app:
+  kafka:
+    bootstrap-servers: http://www.tamky.xyz:9092
+    consumer:
+      group-id: iot
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.jdvn.smartcity.tamky.util.TemperatureSensorDataMessageDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.jdvn.smartcity.tamky.util.TemperatureSensorDataMessageSerializer
+    topic:
+      temperature-sensor: TrackTemperature
+
+  influxdb:
+    url: http://www.tamky.xyz:8086
+    user: admin
+    pass: admin
+    database: sensordata
+    retention-policy: autogen
+    read-timeout-in-seconds: 100
+  
+logging:
+  level:
+    root: INFO
+
+
+---
+### Dev profile
+
+spring:
+  profiles: dev
+
+logging:
+  level:
+    com.jdvn.smartcity.tamky: DEBUG
+
+---
+
+### Prod profile
+
+spring:
+  profiles: prod
+
+logging:
+  level:
+    com.jdvn.smartcity.tamky: INFO
+
+---
+
+### Integration test profile
+
+spring:
+  profiles: it
+  main:
+    allow-bean-definition-overriding: true
