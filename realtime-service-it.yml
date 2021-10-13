@@ -14,8 +14,6 @@ keycloak-client:
   realm:  Smartcity
     
 spring:
-  profiles:
-    active: dev
   resources:
     add-mappings: false
   mvc:
