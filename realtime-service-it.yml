@@ -69,7 +69,32 @@ logging:
   level:
     root: INFO
 
+
+---
+### Dev profile
+
+spring:
+  profiles: dev
+
+logging:
+  level:
+    com.jdvn.smartcity.tamky: DEBUG
+
+---
+
+### Prod profile
+
+spring:
+  profiles: prod
+
+logging:
+  level:
+    com.jdvn.smartcity.tamky: INFO
+
+---
+
 ### Integration test profile
+
 spring:
   profiles: it
   main:
