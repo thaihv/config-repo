@@ -58,7 +58,7 @@ app:
   influxdb:
     url: '{cipher}2353ecb7967271096366e03503a5f2c4dd3326d0aaa384d30163d963b1a82d1fef8e80c4c30ee683cbafad33fedfb8af'
     user: '{cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb'
-    pass: '{cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb'
+    pass: '{cipher}38a7a478ea9a3b720c964360f2d81a9f8c59953330ed41c465b950f8a2635e8'
     database: sensordata
     retention-policy: autogen
     read-timeout-in-seconds: 100
