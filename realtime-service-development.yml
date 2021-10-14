@@ -66,13 +66,7 @@ app:
 logging:
   level:
     root: INFO
-
-logging:
-  level:
     com.jdvn.smartcity.tamky: DEBUG
-
-
-
 
 
 
