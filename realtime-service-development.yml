@@ -10,7 +10,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/ 
 keycloak-client:
-  server-url: {cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb
+  server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
   realm:  Smartcity
     
 spring:
@@ -43,7 +43,7 @@ spring:
   
 app:
   kafka:
-    bootstrap-servers: {cipher}523ef3efed78f2241eed3894404d5a092f0ec2e135fb1416ce12e1fb1c5674154c584acd62f1b3e5602bcf279d9cbe7e
+    bootstrap-servers: '{cipher}523ef3efed78f2241eed3894404d5a092f0ec2e135fb1416ce12e1fb1c5674154c584acd62f1b3e5602bcf279d9cbe7e'
     consumer:
       group-id: iot
       auto-offset-reset: earliest
@@ -56,9 +56,9 @@ app:
       temperature-sensor: TrackTemperature
 
   influxdb:
-    url: {cipher}2353ecb7967271096366e03503a5f2c4dd3326d0aaa384d30163d963b1a82d1fef8e80c4c30ee683cbafad33fedfb8af
-    user: {cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb
-    pass: {cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb
+    url: '{cipher}2353ecb7967271096366e03503a5f2c4dd3326d0aaa384d30163d963b1a82d1fef8e80c4c30ee683cbafad33fedfb8af'
+    user: '{cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb'
+    pass: '{cipher}67d998b6d6842f0f821f858f43a7ff1f5848481d058b308622b7f47f1ca57abb'
     database: sensordata
     retention-policy: autogen
     read-timeout-in-seconds: 100
