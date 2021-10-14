@@ -14,7 +14,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/   
 keycloak-client:
-  server-url: http://tamky.xyz:8080/auth
+  server-url: {cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb
   realm:  Smartcity
 spring:
   security:
