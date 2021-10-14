@@ -11,7 +11,7 @@ eureka:
 
 keycloak:
   realm: Smartcity
-  auth-server-url: {cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb
+  auth-server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
   ssl-required: external
   resource: kpi-service
   credentials.secret: 4d7eeda5-c378-42d4-9fe6-a58376327165
@@ -19,7 +19,7 @@ keycloak:
 #  bearer-only: true
   
 keycloak-client:
-  server-url: {cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb
+  server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
   realm:  Smartcity
 spring:
   data:
@@ -40,9 +40,9 @@ spring:
       hibernate.jdbc.lob.non_contextual_creation: true
   datasource:
     platform: postgres
-    url: {cipher}d45f04e2feb32d0095e7eabe71be246372d4063d74c07e0bd8a1cad7bd9d198daffcc13c8d34ed73fdf85ac9df38407151e90dfc9026e4f508f7c1a1439837fe
-    username: {cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d
-    password: {cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d
+    url: '{cipher}d45f04e2feb32d0095e7eabe71be246372d4063d74c07e0bd8a1cad7bd9d198daffcc13c8d34ed73fdf85ac9df38407151e90dfc9026e4f508f7c1a1439837fe'
+    username: '{cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d'
+    password: '{cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d'
     driverClassName: org.postgresql.Driver 
     initialization-mode: always    
     hikari:
