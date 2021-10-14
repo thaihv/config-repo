@@ -10,7 +10,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/ 
 keycloak-client:
-  server-url: http://tamky.xyz:8080/auth
+  server-url: '{cipher}389c8973f3761753b30608c9d44dc57da405b808e1434b8af37c3af740dbf4daeeeca5bb689f19e1953399c0b471da44'
   realm:  Smartcity
     
 spring:
@@ -43,7 +43,7 @@ spring:
   
 app:
   kafka:
-    bootstrap-servers: http://www.tamky.xyz:9092
+    bootstrap-servers: '{cipher}f32c8a6e07ea3f99c25a5247ebbad973b0438151c1217eee35f7ca4d06a56fbc87be78c0e3255a4ea04de8ee9bc481f0'
     consumer:
       group-id: iot
       auto-offset-reset: earliest
@@ -56,9 +56,9 @@ app:
       temperature-sensor: TrackTemperature
 
   influxdb:
-    url: http://www.tamky.xyz:8086
-    user: admin
-    pass: admin
+    url: '{cipher}39a1483f6a24a5b461f2924ffe932d7586f978311eb884e76957caa991c29d50db40b94f1fabce7fb4b30e4089899722'
+    user: '{cipher}ac893a6a30ee73c2ae33e5170f8f892d43cee0afb9492b97d1a2a6412a67e171'
+    pass: '{cipher}2284427cd4a117909160a98822365807a94ba9e62b4e7729445849958818c529'
     database: sensordata
     retention-policy: autogen
     read-timeout-in-seconds: 100
