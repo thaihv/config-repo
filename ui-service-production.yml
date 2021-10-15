@@ -1,0 +1,35 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /mytamky   
+base-url: http://localhost:${server.port}/${server.servlet.context-path} 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/   
+keycloak-client:
+  server-url: '{cipher}b8746feddfb3b1ae60cd915a6344761bed7b7001125718a07848ddf24889d39f4700db65c784a4c3a079462ed52edb87'
+  realm:  Smartcity
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: ui-service
+            public-client: true
+            authorization-grant-type: authorization_code
+            redirect-uri: ${base-url}/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
