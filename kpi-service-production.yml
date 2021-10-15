@@ -1,0 +1,75 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /kpi  
+
+base-url: http://localhost:${server.port}/${server.servlet.context-path}      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+
+keycloak:
+  realm: Smartcity
+  auth-server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
+  ssl-required: external
+  resource: kpi-service
+  credentials.secret: 4d7eeda5-c378-42d4-9fe6-a58376327165
+  use-resource-role-mappings: true
+#  bearer-only: true
+  
+keycloak-client:
+  server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
+  realm:  Smartcity
+spring:
+  data:
+    rest:
+      defaultMediaType: application/json  
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate.jdbc.batch_size: 20
+      hibernate.cache.use_query_cache: false
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_structured_entries: false
+      hibernate.cache.use_minimal_puts: false
+      hibernate.jdbc.lob.non_contextual_creation: true
+  datasource:
+    platform: postgres
+    url: '{cipher}d45f04e2feb32d0095e7eabe71be246372d4063d74c07e0bd8a1cad7bd9d198daffcc13c8d34ed73fdf85ac9df38407151e90dfc9026e4f508f7c1a1439837fe'
+    username: '{cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d'
+    password: '{cipher}6fedc6f8603750ac99cf8d63031b1119913a400b207748c81a84b5be2c8e825d'
+    driverClassName: org.postgresql.Driver 
+    initialization-mode: always    
+    hikari:
+     connectionTimeout: 20000
+     maximumPoolSize: 5   
+ 
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: kpi-service
+            client-secret: 4d7eeda5-c378-42d4-9fe6-a58376327165
+            authorization-grant-type: authorization_code
+            redirect-uri: ${base-url}/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            logout: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/logout
+            certs-id: YxisG5U0Rhs1GOoOdEmEN4_QcJ2kSMF7cwaUEi1zSQQ
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
