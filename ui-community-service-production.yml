@@ -1,0 +1,8 @@
+server:
+  port: 8094
+  servlet:
+    context-path: /community
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
