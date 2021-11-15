@@ -8,7 +8,7 @@ logging:
     org.springframework.security.oauth2: DEBUG
 server:
   port: 8090
-base-url: http://api-gateway:${server.port} 
+base-url: http://www.tamky.xyz:${server.port} 
 eureka:
   client:
     serviceUrl:
