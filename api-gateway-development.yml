@@ -70,6 +70,13 @@ spring:
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
+        - id: geo-service
+          uri: lb://geo-service
+          predicates:
+            - Path=/geo-api/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie              
         - id: ui-service
           uri: lb://ui-service
           predicates:
