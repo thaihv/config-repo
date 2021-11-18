@@ -9,4 +9,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-conn_string: '{cipher}b071b49b71347d2e4d10d339b0453fe38e4f87154410cc8673c0a4f6d7319ff5fb43df0eb7a8d730605511ce188c994eb29ce850ecf7d19fe752b59d6daee73a11494b1c4be827a3b0cf22938795074b'
+conn_string: postgresql://postgres:postgres@localhost:5432/geospatial
