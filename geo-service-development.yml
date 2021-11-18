@@ -11,3 +11,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 conn_string: postgresql://postgres:postgres@localhost:5432/geospatial
 instance_host: localhost
+app_name: geo-service
