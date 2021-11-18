@@ -3,7 +3,7 @@ server:
   port: 5000
   servlet:
     context-path: /geo-api  
-
+app_name: geo-service
 base-url: http://localhost:${server.port}/${server.servlet.context-path}      
 eureka:
   client:
