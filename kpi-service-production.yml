@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /kpi  
 
-base-url: http://kpi-service:${server.port}/${server.servlet.context-path}      
+base-url: http://localhost:${server.port}/${server.servlet.context-path}      
 eureka:
   client:
     serviceUrl:
