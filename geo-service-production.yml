@@ -11,5 +11,5 @@ eureka:
       defaultZone: http://discovery:8761/eureka/
 conn_string: '{cipher}a3613869189d662dd2139cc2e1dbae637b2b39c8f67ed3aca8fd5dda6437f05e23ca261f8bf24777b0277715872ff97d35221b94655bdf48f015263fff1785c83091a444ee1bae6a021dab34613bb2f6'
 ZIPKIN_DSN: http://zipkin:9411/api/v1/spans
-ZIPKIN_DISABLE: False
+
 
