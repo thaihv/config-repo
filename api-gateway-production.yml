@@ -12,11 +12,13 @@ base-url: http://www.tamky.xyz:${server.port}
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/   
+      defaultZone: http://eureka0-service:8761/eureka/   
 keycloak-client:
-  server-url: '{cipher}648f5641949f2730f5e80f091f6f86e873ef869f6aa24764ead03054ede547945195419334792b8076d2741bfe45f3cb'
-  realm:  Smartcity
+  server-url: '{cipher}e1e5a1ddf8af26a44ffca2d8633ec5ac5e3a08467594ca4cffedb03cb9e2c8a79943d19f9751020fc78d4af79aa3cd52'
+  realm:  mydev
 spring:
+  application:
+    name: api-gateway 
   security:
     oauth2:
       client:
@@ -24,7 +26,7 @@ spring:
           keycloak:
             provider: keycloak
             client-id: api-gateway
-            client-secret: e4b09b9b-fc83-4253-a32b-ffce5f7e9b1b
+            client-secret: T7OuUKKsJMnrPOyn5CgfYcKr2QuuNi8I
             authorization-grant-type: authorization_code
             redirect-uri: ${base-url}/login/oauth2/code/keycloak
             scope: openid
@@ -39,6 +41,7 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+          issuer-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}
   cloud:
     gateway: 
       globalcors:
@@ -55,39 +58,27 @@ spring:
             - OPTIONS
             add-to-simple-url-handler-mapping: true
       routes:
-        - id: kpi-service
-          uri: lb://kpi-service
+        - id: egis0-service
+          uri: lb://egis0-service
           predicates:
-            - Path=/kpi/**
-          filters:
-            - TokenRelay=
-            - RemoveRequestHeader=Cookie  
-        - id: realtime-service
-          uri: lb://realtime-service
-          predicates:
-            - Path=/realtime/**
-            - Method=GET,POST,OPTIONS
+            - Path=/egis0-api/**
+            - Method=GET,POST,DELETE,PUT,PATCH,OPTIONS
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
-        - id: geo-service
-          uri: lb://geo-service
+        - id: jd0-service
+          uri: lb://jd0-service
           predicates:
-            - Path=/geo-api/**
+            - Path=/jd0-api/**
+            - Method=GET,POST,DELETE,PUT,PATCH,OPTIONS
           filters:
             - TokenRelay=
-            - RemoveRequestHeader=Cookie              
-        - id: ui-service
-          uri: lb://ui-service
+            - RemoveRequestHeader=Cookie            
+        - id: prot0-service
+          uri: lb://prot0-service
           predicates:
-            - Path=/mytamky/**
+            - Path=/prot0-api/**
+            - Method=GET,POST,DELETE,PUT,PATCH,OPTIONS
           filters:
             - TokenRelay=
-            - RemoveRequestHeader=Cookie             
-        - id: ui-community-service
-          uri: lb://ui-community-service
-          predicates:
-            - Path=/community/**
-          filters:
-            - TokenRelay=
-            - RemoveRequestHeader=Cookie    
+            - RemoveRequestHeader=Cookie
