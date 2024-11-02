@@ -12,7 +12,7 @@ base-url: http://localhost:${server.port}
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/   
+      defaultZone: http://localhost:8765/eureka/   
 keycloak-client:
   server-url: '{cipher}e1e5a1ddf8af26a44ffca2d8633ec5ac5e3a08467594ca4cffedb03cb9e2c8a79943d19f9751020fc78d4af79aa3cd52'
   realm:  mydev
