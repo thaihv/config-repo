@@ -66,10 +66,10 @@ spring:
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie
-        - id: jd0-service
-          uri: lb://jd0-service
+        - id: bpmn0-service
+          uri: lb://bpmn0-service
           predicates:
-            - Path=/jd0-api/**
+            - Path=/bpmn0-api/**
             - Method=GET,POST,DELETE,PUT,PATCH,OPTIONS
           filters:
             - TokenRelay=
